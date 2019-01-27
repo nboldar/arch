@@ -11,7 +11,7 @@ namespace Service\Communication;
 
 use Service\Communication\CommunicationWay\ICommunication;
 
-class Communicator
+class Communicator implements ICommand
 {
     /**
      * @var ICommunication $communicator
