@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Service\Billing;
+namespace Service\Billing\PayWay;
 
 class Card implements IBilling
 {

@@ -5,12 +5,15 @@ declare(strict_types = 1);
 namespace Service\Order;
 
 use Model;
-use Service\Billing\Card;
-use Service\Billing\IBilling;
-use Service\Communication\Email;
-use Service\Communication\ICommunication;
-use Service\Discount\IDiscount;
-use Service\Discount\NullObject;
+use Service\Billing\PayWay\Card;
+use Service\Billing\PayWay\IBilling;
+use Service\Billing\Payer;
+use Service\Communication\Communicator;
+use Service\Communication\CommunicationWay\Email;
+use Service\Communication\CommunicationWay\ICommunication;
+use Service\Discount\Discounter;
+use Service\Discount\DiscountWay\IDiscount;
+use Service\Discount\DiscountWay\NullObject;
 use Service\User\ISecurity;
 use Service\User\Security;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -81,47 +84,52 @@ class Basket
      */
     public function checkout(): void
     {
+        $payer=new Payer();
         // Здесь должна быть некоторая логика выбора способа платежа
-        $billing = new Card();
+        $payer->setPayer(new Card());
 
+        $discounter = new Discounter();
         // Здесь должна быть некоторая логика получения информации о скидки пользователя
-        $discount = new NullObject();
+        $discounter->setDiscounter(new NullObject());
 
+        $communicator = new Communicator();
         // Здесь должна быть некоторая логика получения способа уведомления пользователя о покупке
-        $communication = new Email();
+        $communicator->setCommunicator(new Email());
 
         $security = new Security($this->session);
 
-        $this->checkoutProcess($discount, $billing, $security, $communication);
+        $this->checkoutProcess($discounter,$billing, $security, $communication);
     }
 
     /**
      * Проведение всех этапов заказа
      *
-     * @param IDiscount $discount,
-     * @param IBilling $billing,
+     * @param Discounter $discounter,
+     * @param Payer $payer,
      * @param ISecurity $security,
-     * @param ICommunication $communication
+     * @param Communicator $communicator
      * @return void
      */
     public function checkoutProcess(
-        IDiscount $discount,
-        IBilling $billing,
+        Discounter $discounter,
+        Payer $payer,
         ISecurity $security,
-        ICommunication $communication
+        Communicator $communicator
     ): void {
         $totalPrice = 0;
         foreach ($this->getProductsInfo() as $product) {
             $totalPrice += $product->getPrice();
         }
 
-        $discount = $discount->getDiscount();
+        //здесь надо получить скидку
+        $discount = $discounter->getDiscount();
         $totalPrice = $totalPrice - $totalPrice / 100 * $discount;
-
-        $billing->pay($totalPrice);
+        // здесь надо оплатить
+        $payer->pay($totalPrice);
 
         $user = $security->getUser();
-        $communication->process($user, 'checkout_template');
+        //здесь надо уведомить пользователя
+        $communicator->process($user, 'checkout_template');
     }
 
     /**
