@@ -4,18 +4,8 @@ declare(strict_types = 1);
 
 namespace Model\Entity;
 
-class Product
+class Product extends Entity
 {
-    /**
-     * @var int
-     */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $name;
-
     /**
      * @var float
      */
@@ -31,22 +21,6 @@ class Product
         $this->id = $id;
         $this->name = $name;
         $this->price = $price;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
     }
 
     /**
