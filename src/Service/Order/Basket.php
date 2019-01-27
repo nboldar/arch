@@ -98,7 +98,7 @@ class Basket
 
         $security = new Security($this->session);
 
-        $this->checkoutProcess($discounter,$billing, $security, $communication);
+        $this->checkoutProcess($discounter,$payer, $security, $communicator);
     }
 
     /**
