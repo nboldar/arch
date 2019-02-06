@@ -6,18 +6,11 @@ namespace Service\Order;
 
 use Model;
 use Service\Billing\PayWay\Card;
-use Service\Billing\PayWay\IBilling;
-use Service\Billing\Payer;
-use Service\Communication\Communicator;
 use Service\Communication\CommunicationWay\Email;
-use Service\Communication\CommunicationWay\ICommunication;
-use Service\Discount\Discounter;
-use Service\Discount\DiscountWay\IDiscount;
 use Service\Discount\DiscountWay\NullObject;
-use Service\User\ISecurity;
 use Service\User\Security;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Service\Order\BasketBuilder;
+
 
 class Basket
 {
@@ -90,7 +83,7 @@ class Basket
         $basketBuilder->setCommunicator(new Email());
         $basketBuilder->setSecurity(new Security($this->session));
         $basketBuilder->setProductsInBasket($this->getProductsInfo());
-        (new OrderProcess($basketBuilder))->orderProcess();
+        $basketBuilder->build()->orderProcess();
     }
 
     /**

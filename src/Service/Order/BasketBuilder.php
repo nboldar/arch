@@ -109,4 +109,8 @@ class BasketBuilder
         return $this->productsInBasket;
     }
 
+    public function build (): OrderProcess
+    {
+        return new OrderProcess($this);
+    }
 }
