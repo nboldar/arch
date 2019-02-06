@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Service\Order;
 
@@ -17,6 +17,7 @@ use Service\Discount\DiscountWay\NullObject;
 use Service\User\ISecurity;
 use Service\User\Security;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Service\Order\BasketBuilder;
 
 class Basket
 {
@@ -33,7 +34,7 @@ class Basket
     /**
      * @param SessionInterface $session
      */
-    public function __construct(SessionInterface $session)
+    public function __construct (SessionInterface $session)
     {
         $this->session = $session;
     }
@@ -45,7 +46,7 @@ class Basket
      *
      * @return void
      */
-    public function addProduct(int $product): void
+    public function addProduct (int $product): void
     {
         $basket = $this->session->get(static::BASKET_DATA_KEY, []);
         if (!in_array($product, $basket, true)) {
@@ -61,7 +62,7 @@ class Basket
      *
      * @return bool
      */
-    public function isProductInBasket(int $productId): bool
+    public function isProductInBasket (int $productId): bool
     {
         return in_array($productId, $this->getProductIds(), true);
     }
@@ -71,7 +72,7 @@ class Basket
      *
      * @return Model\Entity\Product[]
      */
-    public function getProductsInfo(): array
+    public function getProductsInfo (): array
     {
         $productIds = $this->getProductIds();
         return $this->getProductRepository()->search($productIds);
@@ -82,54 +83,14 @@ class Basket
      *
      * @return void
      */
-    public function checkout(): void
+    public function checkout (BasketBuilder $basketBuilder): void
     {
-        $payer=new Payer();
-        // Здесь должна быть некоторая логика выбора способа платежа
-        $payer->setPayer(new Card());
-
-        $discounter = new Discounter();
-        // Здесь должна быть некоторая логика получения информации о скидки пользователя
-        $discounter->setDiscounter(new NullObject());
-
-        $communicator = new Communicator();
-        // Здесь должна быть некоторая логика получения способа уведомления пользователя о покупке
-        $communicator->setCommunicator(new Email());
-
-        $security = new Security($this->session);
-
-        $this->checkoutProcess($discounter,$payer, $security, $communicator);
-    }
-
-    /**
-     * Проведение всех этапов заказа
-     *
-     * @param Discounter $discounter,
-     * @param Payer $payer,
-     * @param ISecurity $security,
-     * @param Communicator $communicator
-     * @return void
-     */
-    public function checkoutProcess(
-        Discounter $discounter,
-        Payer $payer,
-        ISecurity $security,
-        Communicator $communicator
-    ): void {
-        $totalPrice = 0;
-        foreach ($this->getProductsInfo() as $product) {
-            $totalPrice += $product->getPrice();
-        }
-
-        //здесь надо получить скидку
-        $discount = $discounter->getDiscount();
-        $totalPrice = $totalPrice - $totalPrice / 100 * $discount;
-        // здесь надо оплатить
-        $payer->pay($totalPrice);
-
-        $user = $security->getUser();
-        //здесь надо уведомить пользователя
-        $communicator->process($user, 'checkout_template');
+        $basketBuilder->setPayer(new Card());
+        $basketBuilder->setDiscounter(new NullObject());
+        $basketBuilder->setCommunicator(new Email());
+        $basketBuilder->setSecurity(new Security($this->session));
+        $basketBuilder->setProductsInBasket($this->getProductsInfo());
+        (new OrderProcess($basketBuilder))->orderProcess();
     }
 
     /**
@@ -137,7 +98,7 @@ class Basket
      *
      * @return Model\Repository\Product
      */
-    protected function getProductRepository(): Model\Repository\Product
+    protected function getProductRepository (): Model\Repository\Product
     {
         return new Model\Repository\Product();
     }
@@ -147,7 +108,7 @@ class Basket
      *
      * @return array
      */
-    private function getProductIds(): array
+    private function getProductIds (): array
     {
         return $this->session->get(static::BASKET_DATA_KEY, []);
     }

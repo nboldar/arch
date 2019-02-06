@@ -34,23 +34,19 @@ class Product
     public function getAll (string $sortType): array
     {
 
-
-
-//
-
         $productList = $this->getProductRepository()->fetchAll();
         /**
          * @var \Kernel $app
          */
-        var_dump($app);exit;
+//        var_dump($app);exit;
 
-
-//        if ($sortType == 'name') {
-//            $productList = $sorter->sort(new NameSorter(), $productList);
-//        }
-//        if ($sortType == 'price') {
-//            $productList = $sorter->sort(new PriceSorter(), $productList);
-//        }
+        $sorter = new ProductSorter();
+        if ($sortType == 'name') {
+            $productList = $sorter->sort(new NameSorter(), $productList);
+        }
+        if ($sortType == 'price') {
+            $productList = $sorter->sort(new PriceSorter(), $productList);
+        }
 
         return $productList;
     }
