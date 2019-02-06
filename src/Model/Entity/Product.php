@@ -32,6 +32,15 @@ class Product extends Entity
     }
 
     /**
+     * @param float $price
+     */
+    public function setPrice (float $price): void
+    {
+        $this->price = $price;
+    }
+
+
+    /**
      * @return array
      */
     public function toArray(): array
@@ -42,4 +51,5 @@ class Product extends Entity
             'price' => $this->price,
         ];
     }
+
 }

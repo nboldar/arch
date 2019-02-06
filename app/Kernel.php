@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Framework\Registry;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
 
-class Kernel
+class Kernel extends \Symfony\Component\HttpKernel\Kernel
 {
     /**
      * @var RouteCollection
@@ -28,16 +28,20 @@ class Kernel
      */
     protected $containerBuilder;
 
-    public function __construct(ContainerBuilder $containerBuilder)
+    public function __construct (ContainerBuilder $containerBuilder)
     {
+        parent::__construct('dev', true);
         $this->containerBuilder = $containerBuilder;
     }
 
     /**
      * @param Request $request
+     *
      * @return Response
      */
-    public function handle(Request $request): Response
+    public function handle (Request $request,
+                            $type = self::MASTER_REQUEST,
+                            $catch = true): Response
     {
         $this->registerConfigs();
         $this->registerRoutes();
@@ -48,7 +52,7 @@ class Kernel
     /**
      * @return void
      */
-    protected function registerConfigs(): void
+    protected function registerConfigs (): void
     {
         try {
             $fileLocator = new FileLocator(__DIR__ . DIRECTORY_SEPARATOR . 'config');
@@ -62,7 +66,7 @@ class Kernel
     /**
      * @return void
      */
-    protected function registerRoutes(): void
+    protected function registerRoutes (): void
     {
         $this->routeCollection = require __DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'routing.php';
         $this->containerBuilder->set('route_collection', $this->routeCollection);
@@ -70,9 +74,10 @@ class Kernel
 
     /**
      * @param Request $request
+     *
      * @return Response
      */
-    protected function process(Request $request): Response
+    protected function process (Request $request): Response
     {
         $matcher = new UrlMatcher($this->routeCollection, new RequestContext());
         $matcher->getContext()->fromRequest($request);
@@ -96,4 +101,23 @@ class Kernel
             return new Response($error, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * Returns an array of bundles to register.
+     *
+     * @return iterable|\Symfony\Component\HttpKernel\Bundle\BundleInterface An iterable of bundle instances
+     */
+    public function registerBundles ()
+    {
+        // TODO: Implement registerBundles() method.
+    }
+
+    /**
+     * Loads the container configuration.
+     */
+    public function registerContainerConfiguration (\Symfony\Component\Config\Loader\LoaderInterface $loader)
+    {
+        // TODO: Implement registerContainerConfiguration() method.
+    }
+
 }

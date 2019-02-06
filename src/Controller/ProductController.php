@@ -54,16 +54,8 @@ class ProductController
      */
     public function listAction (Request $request): Response
     {
-        $param = $request->query->get('sort');
-        $products = (new Product())->getAll($request->query->get('sort', ''));
-        $sorter = new ProductSorter();
-        $productList = $products;
-        if ($param == 'name') {
-            $productList = $sorter->sort(new NameSorter(), $products);
-        }
-        if ($param == 'price') {
-            $productList = $sorter->sort(new PriceSorter(), $products);
-        }
+
+        $productList = (new Product())->getAll($request->query->get('sort', ''));
         return $this->render('product/list.html.php', ['productList' => $productList]);
     }
 }

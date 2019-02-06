@@ -19,7 +19,7 @@ class NameSorter implements ISorting
             }
             return (substr($item1->getName(), 0, 1) < substr($item2->getName(), 0, 1)) ? -1 : 1;
         });
-       // var_dump($items); exit;
+
         return $items;
     }
 
