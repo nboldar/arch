@@ -1,28 +1,40 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Model\Repository;
 
 use Model\Entity;
+use Model\Entity\Product as entityProduct;
 
 class Product
 {
     /**
+     * @var Entity\Product $entityProduct
+     */
+    private $entityProduct;
+
+    public function __construct ()
+    {
+        $this->entityProduct = new entityProduct(1, 'product', 1);
+    }
+
+    /**
      * Поиск продуктов по массиву id
      *
      * @param int[] $ids
+     *
      * @return Entity\Product[]
      */
-    public function search(array $ids = []): array
+    public function search (array $ids = []): array
     {
         if (!count($ids)) {
             return [];
         }
-
         $productList = [];
+
         foreach ($this->getDataFromSource(['id' => $ids]) as $item) {
-            $productList[] = new Entity\Product($item['id'], $item['name'], $item['price']);
+            $productList[] = $this->cloneProduct($item);
         }
 
         return $productList;
@@ -33,14 +45,23 @@ class Product
      *
      * @return Entity\Product[]
      */
-    public function fetchAll(): array
+    public function fetchAll (): array
     {
         $productList = [];
         foreach ($this->getDataFromSource() as $item) {
-            $productList[] = new Entity\Product($item['id'], $item['name'], $item['price']);
+            $productList[] = $this->cloneProduct($item);
         }
 
         return $productList;
+    }
+
+    protected function cloneProduct (array $item)
+    {
+        $product = clone $this->entityProduct;
+        $product->setId($item['id']);
+        $product->setName($item['name']);
+        $product->setPrice($item['price']);
+        return $product;
     }
 
     /**
@@ -50,7 +71,7 @@ class Product
      *
      * @return array
      */
-    private function getDataFromSource(array $search = [])
+    private function getDataFromSource (array $search = [])
     {
         $dataSource = [
             [

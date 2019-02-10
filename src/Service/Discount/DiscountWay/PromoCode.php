@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Service\Discount;
+namespace Service\Discount\DiscountWay;
 
 class PromoCode implements IDiscount
 {

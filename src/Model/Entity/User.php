@@ -4,18 +4,8 @@ declare(strict_types = 1);
 
 namespace Model\Entity;
 
-class User
+class User extends Entity
 {
-    /**
-     * @var int
-     */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $name;
-
     /**
      * @var string
      */
@@ -45,22 +35,6 @@ class User
         $this->login = $login;
         $this->passwordHash = $password;
         $this->role = $role;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
     }
 
     /**

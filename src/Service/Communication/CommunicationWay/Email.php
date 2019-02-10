@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Service\Communication;
+namespace Service\Communication\CommunicationWay;
 
 use Model;
 

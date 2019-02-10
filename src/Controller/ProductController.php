@@ -1,12 +1,16 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Controller;
 
 use Framework\Render;
 use Service\Order\Basket;
 use Service\Product\Product;
+use Service\Sorting\ISorting;
+use Service\Sorting\PriceSorter;
+use Service\Sorting\NameSorter;
+use Service\Sorting\ProductSorter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,9 +23,10 @@ class ProductController
      *
      * @param Request $request
      * @param string $id
+     *
      * @return Response
      */
-    public function infoAction(Request $request, $id): Response
+    public function infoAction (Request $request, $id): Response
     {
         $basket = (new Basket($request->getSession()));
 
@@ -47,10 +52,10 @@ class ProductController
      *
      * @return Response
      */
-    public function listAction(Request $request): Response
+    public function listAction (Request $request): Response
     {
-        $productList = (new Product())->getAll($request->query->get('sort', ''));
 
+        $productList = (new Product())->getAll($request->query->get('sort', ''));
         return $this->render('product/list.html.php', ['productList' => $productList]);
     }
 }
