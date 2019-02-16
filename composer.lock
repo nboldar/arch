@@ -4,8 +4,318 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3af014d8adf64869c5765b3e39b8764d",
+    "content-hash": "912e312b8f506e972840610e8a6dc936",
     "packages": [
+        {
+            "name": "eden/array",
+            "version": "4.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Eden-PHP/Array.git",
+                "reference": "a66188d736c05a6595bfc87cd552522e3bb55db6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Eden-PHP/Array/zipball/a66188d736c05a6595bfc87cd552522e3bb55db6",
+                "reference": "a66188d736c05a6595bfc87cd552522e3bb55db6",
+                "shasum": ""
+            },
+            "require": {
+                "eden/core": "4.*",
+                "php": ">=5.4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Blanquera",
+                    "email": "cblanquera@openovate.com"
+                }
+            ],
+            "description": "Autoloading, error and exception handler",
+            "homepage": "http://eden-php.com",
+            "keywords": [
+                "eden",
+                "library"
+            ],
+            "time": "2016-07-24T01:32:26+00:00"
+        },
+        {
+            "name": "eden/collection",
+            "version": "4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Eden-PHP/Collection.git",
+                "reference": "c201d02e2003379585cc4993c70d5ead4649e19a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Eden-PHP/Collection/zipball/c201d02e2003379585cc4993c70d5ead4649e19a",
+                "reference": "c201d02e2003379585cc4993c70d5ead4649e19a",
+                "shasum": ""
+            },
+            "require": {
+                "eden/array": "4.*",
+                "eden/core": "4.*",
+                "eden/model": "4.*",
+                "eden/string": "4.*",
+                "php": ">=5.4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Eden\\Collection\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Blanquera",
+                    "email": "cblanquera@openovate.com"
+                }
+            ],
+            "description": "Eden generic collection component",
+            "homepage": "http://eden-php.com",
+            "keywords": [
+                "eden",
+                "library"
+            ],
+            "time": "2015-10-13T05:27:04+00:00"
+        },
+        {
+            "name": "eden/core",
+            "version": "4.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Eden-PHP/Core.git",
+                "reference": "2dbd1f3e83ca0dd2d787d31f1654335fba6b6f72"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Eden-PHP/Core/zipball/2dbd1f3e83ca0dd2d787d31f1654335fba6b6f72",
+                "reference": "2dbd1f3e83ca0dd2d787d31f1654335fba6b6f72",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Eden\\Core\\": "src/"
+                },
+                "classmap": [
+                    "src/Decorator.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Blanquera",
+                    "email": "cblanquera@openovate.com"
+                }
+            ],
+            "description": "Eden Core component full of secret sauce",
+            "homepage": "http://eden-php.com",
+            "keywords": [
+                "eden",
+                "library"
+            ],
+            "time": "2016-07-24T01:57:25+00:00"
+        },
+        {
+            "name": "eden/model",
+            "version": "4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Eden-PHP/Model.git",
+                "reference": "929875832778c498e25fa523caecfc4f9d2d832c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Eden-PHP/Model/zipball/929875832778c498e25fa523caecfc4f9d2d832c",
+                "reference": "929875832778c498e25fa523caecfc4f9d2d832c",
+                "shasum": ""
+            },
+            "require": {
+                "eden/array": "4.*",
+                "eden/core": "4.*",
+                "eden/string": "4.*",
+                "php": ">=5.4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Eden\\Model\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Blanquera",
+                    "email": "cblanquera@openovate.com"
+                }
+            ],
+            "description": "Eden generic model component",
+            "homepage": "http://eden-php.com",
+            "keywords": [
+                "eden",
+                "library"
+            ],
+            "time": "2015-10-13T05:10:11+00:00"
+        },
+        {
+            "name": "eden/mysql",
+            "version": "4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Eden-PHP/Mysql.git",
+                "reference": "3e08b89a952ec45d18d8c2f6787310f5f50b69aa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Eden-PHP/Mysql/zipball/3e08b89a952ec45d18d8c2f6787310f5f50b69aa",
+                "reference": "3e08b89a952ec45d18d8c2f6787310f5f50b69aa",
+                "shasum": ""
+            },
+            "require": {
+                "eden/array": "4.*",
+                "eden/collection": "4.*",
+                "eden/core": "4.*",
+                "eden/model": "4.*",
+                "eden/sql": "4.*",
+                "eden/string": "4.*",
+                "php": ">=5.4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Eden\\Mysql\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Blanquera",
+                    "email": "cblanquera@openovate.com"
+                }
+            ],
+            "description": "Eden MySQL Search, Collection, Model ORM component",
+            "homepage": "http://eden-php.com",
+            "keywords": [
+                "eden",
+                "library"
+            ],
+            "time": "2015-10-13T05:38:05+00:00"
+        },
+        {
+            "name": "eden/sql",
+            "version": "4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Eden-PHP/Sql.git",
+                "reference": "83380382f126588a01bd5401024c23c18c3022e1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Eden-PHP/Sql/zipball/83380382f126588a01bd5401024c23c18c3022e1",
+                "reference": "83380382f126588a01bd5401024c23c18c3022e1",
+                "shasum": ""
+            },
+            "require": {
+                "eden/array": "4.*",
+                "eden/collection": "4.*",
+                "eden/core": "4.*",
+                "eden/model": "4.*",
+                "eden/string": "4.*",
+                "php": ">=5.4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Eden\\Sql\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Blanquera",
+                    "email": "cblanquera@openovate.com"
+                }
+            ],
+            "description": "SQL core methods for MySQL, Posgres and SQLite",
+            "homepage": "http://eden-php.com",
+            "keywords": [
+                "eden",
+                "library"
+            ],
+            "time": "2015-10-13T05:31:58+00:00"
+        },
+        {
+            "name": "eden/string",
+            "version": "4.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Eden-PHP/String.git",
+                "reference": "2868350eea5c5cbe430f38915f941c0f3764ae33"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Eden-PHP/String/zipball/2868350eea5c5cbe430f38915f941c0f3764ae33",
+                "reference": "2868350eea5c5cbe430f38915f941c0f3764ae33",
+                "shasum": ""
+            },
+            "require": {
+                "eden/core": "4.*",
+                "php": ">=5.4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Blanquera",
+                    "email": "cblanquera@openovate.com"
+                }
+            ],
+            "description": "Autoloading, error and exception handler",
+            "homepage": "http://eden-php.com",
+            "keywords": [
+                "eden",
+                "library"
+            ],
+            "time": "2016-07-24T01:33:39+00:00"
+        },
         {
             "name": "psr/container",
             "version": "1.0.0",
@@ -101,6 +411,52 @@
                 "psr-3"
             ],
             "time": "2016-10-10T12:19:37+00:00"
+        },
+        {
+            "name": "simplon/postgres",
+            "version": "0.2.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fightbulc/simplon_postgres.git",
+                "reference": "8a9bb589e3785176c273c422f4c18ddff8c57607"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fightbulc/simplon_postgres/zipball/8a9bb589e3785176c273c422f4c18ddff8c57607",
+                "reference": "8a9bb589e3785176c273c422f4c18ddff8c57607",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pdo": "*",
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Simplon\\Postgres\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tino Ehrich",
+                    "email": "tino@bigpun.me",
+                    "role": "developer"
+                }
+            ],
+            "description": "Simplon PostgreSQL Library",
+            "homepage": "https://github.com/fightbulc/simplon_postgres",
+            "keywords": [
+                "db",
+                "manager",
+                "pdo",
+                "pgsql",
+                "postgres"
+            ],
+            "time": "2015-02-15T19:45:15+00:00"
         },
         {
             "name": "symfony/config",
