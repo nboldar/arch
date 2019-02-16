@@ -1,9 +1,10 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Framework;
 
+use Component\Templater\Templater;
 use Service\User\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,9 +17,10 @@ trait Render
      *
      * @param string $view
      * @param array $parameters
+     *
      * @return Response
      */
-    private function render(string $view, array $parameters = []): Response
+    private function render (string $view, array $parameters = []): Response
     {
         $rootViewPath = Registry::getDataConfig('view.directory');
         $viewPath = $rootViewPath . $view;
@@ -62,7 +64,7 @@ trait Render
      *
      * @return RedirectResponse
      */
-    private function redirect(string $name): RedirectResponse
+    private function redirect (string $name): RedirectResponse
     {
         $route = Registry::getRoute($name);
         return new RedirectResponse($route);
