@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Test\Service\Product;
 
 use Model\Entity\Product as ProductEntity;
-use Model\Repository\Product as ProductRepository;
+use Model\Repository\ProductMapper as ProductRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Service\Product\Product as ProductService;

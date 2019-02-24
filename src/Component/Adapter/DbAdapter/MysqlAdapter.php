@@ -45,7 +45,7 @@ class MysqlAdapter implements IDbAdapter
         return $this->dbConnection->getRow($table, 'id', $id);
     }
 
-    public function getAll (string $table, string $columnName, $value)
+    public function searchAll (string $table, string $columnName, $value)
     {
         return $this->dbConnection->getRow($table, $columnName, $value);
     }

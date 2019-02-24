@@ -89,11 +89,11 @@ class Basket
     /**
      * Фабричный метод для репозитория Product
      *
-     * @return Model\Repository\Product
+     * @return Model\Repository\ProductMapper
      */
-    protected function getProductRepository (): Model\Repository\Product
+    protected function getProductRepository (): Model\Repository\ProductMapper
     {
-        return new Model\Repository\Product();
+        return new Model\Repository\ProductMapper();
     }
 
     /**

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Service\Product;
 
+use Component\Adapter\DbAdapter\JsonAdapter;
 use Model;
 use Service\Sorting\NameSorter;
 use Service\Sorting\PriceSorter;
@@ -20,8 +21,7 @@ class Product
      */
     public function getInfo (int $id): ?Model\Entity\Product
     {
-        $product = $this->getProductRepository()->search([$id]);
-        return count($product) ? $product[0] : null;
+        return $this->getProductRepository()->fetchOne($id);
     }
 
     /**
@@ -54,10 +54,10 @@ class Product
     /**
      * Фабричный метод для репозитория Product
      *
-     * @return Model\Repository\Product
+     * @return Model\Repository\ProductMapper
      */
-    protected function getProductRepository (): Model\Repository\Product
+    protected function getProductRepository (): Model\Repository\ProductMapper
     {
-        return new Model\Repository\Product();
+        return new Model\Repository\ProductMapper((new JsonAdapter()));
     }
 }
