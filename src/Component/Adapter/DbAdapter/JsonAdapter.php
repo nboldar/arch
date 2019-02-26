@@ -28,6 +28,7 @@ class JsonAdapter implements IDbAdapter
     /**
      * @param string $table name of json-file
      * @param array $settings
+     * @return int $id
      */
 
     public function insert(string $table, array $settings)
@@ -38,6 +39,7 @@ class JsonAdapter implements IDbAdapter
         $settings['id'] = $id;
         $data[] = $settings;
         $this->writeInJsonFile($table, $data);
+        return $id;
     }
 
     public function update(string $table, array $condition, array $settings)

@@ -19,6 +19,12 @@ class ProductMapper extends Mapper
     private $entityProduct;
 
 
+    /**
+     * ProductMapper constructor.
+     *
+     * @param IDbAdapter $adapter
+     * @param string $table
+     */
     public function __construct(IDbAdapter $adapter, string $table = 'productSource')
     {
         parent::__construct($adapter, $table);
@@ -38,6 +44,18 @@ class ProductMapper extends Mapper
             return [];
         }
         $productList = [];
+        $all = ObjectStorage::getAllObjects();
+        if (count($all)) {
+            /**
+             * @var Entity\Entity $one
+             */
+            foreach ($all as $one) {
+                if (in_array($one->getId(), $ids)) {
+                    $productList[] = $one;
+                }
+            }
+            return $productList;
+        }
         $data = $this->adapter->getAll($this->table);
         $productFilter = function (array $data) use ($ids): bool {
             return in_array($data[key($ids)], current($ids), true);
@@ -45,72 +63,35 @@ class ProductMapper extends Mapper
         $filteredData = array_filter($data, $productFilter);
 
         foreach ($filteredData as $item) {
-            $productList[] = $this->cloneProduct($item);
+            $product = $this->createThisEntity($item);
+            $productList[] = $product;
+            ObjectStorage::add($product);
         }
 
         return $productList;
-    }
-
-    /**
-     * Получаем все продукты
-     *
-     * @return Entity\Product[]
-     */
-    public function fetchAll(): array
-    {
-        $productList = [];
-        $data = $this->adapter->getAll($this->table);
-        foreach ($data as $item) {
-            $productList[] = $this->cloneProduct($item);
-        }
-
-        return $productList;
-    }
-
-    protected function cloneProduct(array $item)
-    {
-        $product = clone $this->entityProduct;
-        $product->setId($item['id']);
-        $product->setName($item['name']);
-        $product->setPrice($item['price']);
-        return $product;
-    }
-
-
-    public function insert(array $settings)
-    {
-        $this->adapter->insert($this->table, $settings);
-    }
-
-    public function delete(int $id)
-    {
-        $this->adapter->delete($this->table, $id);
-    }
-
-    public function update(array $condition, array $settings)
-    {
-        $this->adapter->update($this->table, $condition, $settings);
     }
 
     /**
      * @param int $id
-     *
-     * @return entityProduct
-     * @throws \Exception
+     * @param array $settings
      */
-    public function fetchOne(int $id): entityProduct
+    public function update(int $id, array $settings)
     {
-
-            $result = $this->adapter->getOne($this->table, $id);
-        if (is_null($result)) {
-            throw new \Exception("There is no product with id={$id}");
-        } else {
-            return $this->cloneProduct($result);
-        }
+        /**
+         * @var Entity\Product $product
+         */
+        $product = ObjectStorage::getObject($this->getClassName(), $id);
+        $product->setName($settings['name']);
+        $product->setPrice($settings['price']);
     }
 
-    public function getById(int $id)
+
+    protected function createThisEntity(array $properties): Entity\Entity
     {
-        $this->fetchOne($id);
+        $product = clone $this->entityProduct;
+        $product->setId($properties['id']);
+        $product->setName($properties['name']);
+        $product->setPrice($properties['price']);
+        return $product;
     }
 }
