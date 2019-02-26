@@ -19,5 +19,6 @@ interface IDbAdapter
 
     public function getOne (string $table, int $id);
 
-    public function getAll (string $table, string $columnName, $value);
+    public function searchAll (string $table, string $columnName, $value);
+    public function getAll(string $table);
 }

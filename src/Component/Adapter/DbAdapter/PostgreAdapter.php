@@ -46,7 +46,7 @@ class PostgreAdapter implements IDbAdapter
         return $this->dbConnection->fetchRow($query, $condition);
     }
 
-    public function getAll (string $table, string $columnName, $value)
+    public function searchAll (string $table, string $columnName, $value)
     {
         $query = "SElECT * FROM {$table} WHERE {$columnName} = :{$columnName}";
         $condition = [$columnName => $value];

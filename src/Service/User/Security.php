@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Service\User;
 
+use Component\Adapter\DbAdapter\JsonAdapter;
 use Model;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -28,7 +29,7 @@ class Security implements ISecurity
     {
         $userId = $this->session->get(self::SESSION_USER_IDENTITY);
 
-        return $userId ? (new Model\Repository\User())->getById($userId) : null;
+        return $userId ? (new Model\Repository\UserMapper())->getById($userId) : null;
     }
 
     /**
@@ -74,10 +75,10 @@ class Security implements ISecurity
     /**
      * Фабричный метод для репозитория User
      *
-     * @return Model\Repository\User
+     * @return Model\Repository\UserMapper
      */
-    protected function getUserRepository(): Model\Repository\User
+    protected function getUserRepository(): Model\Repository\UserMapper
     {
-        return new Model\Repository\User();
+        return new Model\Repository\UserMapper(new JsonAdapter());
     }
 }

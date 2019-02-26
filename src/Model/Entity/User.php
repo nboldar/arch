@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Model\Entity;
 
@@ -59,5 +59,29 @@ class User extends Entity
     public function getRole(): Role
     {
         return $this->role;
+    }
+
+    /**
+     * @param string $login
+     */
+    public function setLogin(string $login): void
+    {
+        $this->login = $login;
+    }
+
+    /**
+     * @param string $passwordHash
+     */
+    public function setPasswordHash(string $passwordHash): void
+    {
+        $this->passwordHash = hash("md5", $passwordHash);
+    }
+
+    /**
+     * @param Role $role
+     */
+    public function setRole(Role $role): void
+    {
+        $this->role = $role;
     }
 }
