@@ -12,6 +12,7 @@
     "require": {
         "php": ">=7.1.0",
         "eden/mysql": "^4.0",
+        "monolog/monolog": "^1.24",
         "simplon/postgres": "^0.2.6",
         "symfony/config": "^4.2",
         "symfony/console": "^4.2",

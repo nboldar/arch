@@ -18,6 +18,7 @@ use Symfony\Component\Routing\RouteCollection;
 
 class Kernel extends \Symfony\Component\HttpKernel\Kernel
 {
+    use \Traits\MonologLogger;
     /**
      * @var RouteCollection
      */
@@ -58,6 +59,7 @@ class Kernel extends \Symfony\Component\HttpKernel\Kernel
             $fileLocator = new FileLocator(__DIR__ . DIRECTORY_SEPARATOR . 'config');
             $loader = new PhpFileLoader($this->containerBuilder, $fileLocator);
             $loader->load('parameters.php');
+
         } catch (\Throwable $e) {
             die('Cannot read the config file. File: ' . __FILE__ . '. Line: ' . __LINE__);
         }
@@ -68,8 +70,10 @@ class Kernel extends \Symfony\Component\HttpKernel\Kernel
      */
     protected function registerRoutes (): void
     {
+
         $this->routeCollection = require __DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'routing.php';
         $this->containerBuilder->set('route_collection', $this->routeCollection);
+
     }
 
     /**
@@ -85,11 +89,14 @@ class Kernel extends \Symfony\Component\HttpKernel\Kernel
         try {
             $request->attributes->add($matcher->match($request->getPathInfo()));
             $request->setSession(new Session());
+            $this->setMonologLogger();
 
             $controller = (new ControllerResolver())->getController($request);
             $arguments = (new ArgumentResolver())->getArguments($request, $controller);
 
+            $this->monologLogger->info(__METHOD__ . ' take peak memory: ' . memory_get_peak_usage(true));
             return call_user_func_array($controller, $arguments);
+
         } catch (ResourceNotFoundException $e) {
             return new Response('Page not found. 404', Response::HTTP_NOT_FOUND);
         } catch (\Throwable $e) {
