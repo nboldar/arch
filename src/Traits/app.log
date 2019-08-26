@@ -37,3 +37,5 @@
 [2019-08-12 13:15:20] appLogger.INFO: Kernel::process take peak memory: 2097152 [] []
 [2019-08-12 13:16:03] appLogger.INFO: Kernel::process take peak memory: 2097152 [] []
 [2019-08-12 13:16:03] appLogger.INFO: Controller\MainController::indexAction take memory: 2097152 [] []
+[2019-08-26 20:13:14] appLogger.INFO: Kernel::process take peak memory: 4194304 [] []
+[2019-08-26 20:13:14] appLogger.INFO: Controller\MainController::indexAction take memory: 4194304 [] []
